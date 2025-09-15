@@ -432,6 +432,9 @@ Fun fact: This terminal has been compromised 0 times! 🛡️</span>`;
 +30 Lives, +1337 Points, +∞ Coffee
 
 "The cake is a lie, but the code is real!" - GLaDOS, probably</span>`;
+            },
+            Peque: function() {
+                return `<span class="easter-egg">CTF{HICISTE_LAS_MOVIDAS_BIEN}</span>`;
             }
         };
         
@@ -689,7 +692,8 @@ Fun fact: This terminal has been compromised 0 times! 🛡️</span>`;
             cowsay: easterEggs.cowsay,
             fortune: easterEggs.fortune,
             hack: easterEggs.hack,
-            debug: easterEggs.debug
+            debug: easterEggs.debug,
+            Peque: easterEggs.Peque
         };
         
         // Función para manejar redirección (> y >>)
