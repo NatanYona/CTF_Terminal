@@ -78,16 +78,17 @@ ls -a    # Muestra archivos ocultos
 ```
 
 **Archivos ocultos incluidos:**
-- `.matrix_has_you` - Código binario (01010111... = "Wake up")
-- `.bashrc` - Pistas sobre comandos históricos de Unix
-- `.drosophila_melanogaster` - Relacionado con la pista científica
-- `.void/README.md` - Referencias históricas sin spoilers
+- `Inicio/.secret_readme.txt` → Mensaje oculto con pistas sobre `matrix`, `coffee` y el **Konami Code**.
+- `Docs/.env` → Variables de configuración ficticias del "sistema" (versión, kernel, usuario, etc.).
+- `Animales/.dinosaur.txt` → Mensaje secreto con humor sobre dinosaurios y fechas Unix.
+- `.hidden/secrets.txt` → Lista de comandos ocultos/easter eggs disponibles.
 
 #### 2. Pistas Crípticas en el Contenido
 Los archivos ocultos contienen referencias sutiles:
-- **"1980 was a good year for trains"** → comando `sl`
-- **"Cows have been talking since the beginning"** → comando `cowsay`
-- **"Coffee became a service error"** → comando `coffee` (HTTP 418)
+- `.secret_readme.txt`: Menciona `matrix`, `coffee` y el **Konami Code**.
+- `.env`: Incluye un `SECRET_SOUCE` con la frase "*The cake is a lie*"
+- `.dinosaur.txt`: Guiño a archivos antiguos con fecha de 1970.
+- `secrets.txt`: Lista comandos como `sl`, `cowsay`, `fortune`, `hack`, `debug`, etc.
 
 ### 🎮 Comandos Easter Egg Disponibles
 
