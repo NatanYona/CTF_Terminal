@@ -1,0 +1,98 @@
+{
+  "terminal": {
+    "prompt": {
+      "username": "hacker",
+      "hostname": "ctf-terminal",
+      "ips": ["127.0.0.1", "192.168.1.42", "10.0.0.1337", "172.16.13.37"]
+    },
+    "welcomeMessages": [
+      "HackerOS 13.37-leet Multi-Level CTF Terminal (GNU/Linux 5.4.0-42-generic x86_64)",
+      "🧠 Welcome to the Multi-Level CTF Challenge, hacker...",
+      "System load: 1.337  Processes: 42  Users logged in: 1337",
+      "Memory usage: 13%   IP address: 127.0.0.1   Swap usage: 0%"
+    ],
+    "animations": {
+      "typewriterSpeed": 20,
+      "matrixLines": 5,
+      "bsodDuration": 3000,
+      "hackSequenceDelay": 200
+    },
+    "features": {
+      "autoComplete": true,
+      "commandHistory": true,
+      "copyNotification": true,
+      "konamiCode": true
+    }
+  },
+  "permissions": {
+    "defaultUmask": "022",
+    "defaultUser": "student",
+    "defaultGroup": "students",
+    "validGroups": ["student", "hackers", "users", "guardias", "students", "root"],
+    "validUsers": ["student", "root"]
+  },
+  "levels": {
+    "1": {
+      "name": "CTF de Navegación y Exploración",
+      "rootPath": "/CTF_Challenge",
+      "objective": "Encuentra y reúne las piezas de la bandera final.",
+      "availableCommands": ["ls", "cd", "pwd", "cat", "mkdir", "mv", "rm", "echo", "clear", "help", "level", "reset"]
+    },
+    "2": {
+      "name": "CTF de Permisos",
+      "rootPath": "/CTF_Permisos", 
+      "objective": "Resuelve los 5 desafíos y reúne los fragmentos.",
+      "availableCommands": ["chmod", "chown", "chgrp", "umask", "sort", "bash", "stat", "more", "less"],
+      "startingHint": "Comienza en: cd Desafio_chmod"
+    }
+  },
+  "easterEggs": {
+    "enabled": true,
+    "commands": [
+      "matrix", "coffee", "sudo", "sl", "cowsay", "fortune", "hack", "debug",
+      "Peque", "nmap", "bsod", "konami", "whoami", "backdoor"
+    ],
+    "hiddenFilesHint": "💡 Los hackers curiosos exploran archivos ocultos con 'ls -a'...",
+    "levelSwitchHint": "💡 Tip: Try 'help' for commands, 'level 2' to access the permissions challenge..."
+  },
+  "fragments": {
+    "1": {
+      "content": "CTF{L0S_P3RM1",
+      "script": "llave_verificadora.sh",
+      "challenge": "chmod"
+    },
+    "2": {
+      "content": "S05_S0N_L4_",
+      "script": "cetro_verificacion.sh", 
+      "challenge": "chown"
+    },
+    "3": {
+      "content": "CL4V3_P4R4_",
+      "script": "sello_verificador.sh",
+      "challenge": "chgrp"
+    },
+    "4": {
+      "content": "3L_T3S0R0",
+      "script": "oraculo_verificador.sh",
+      "challenge": "umask"
+    },
+    "5": {
+      "content": "_D3_L0S_H4CK3R5}",
+      "script": "piedra_verificadora.sh",
+      "challenge": "sort"
+    }
+  },
+  "validation": {
+    "requiredPermissions": {
+      "chmod": "644",
+      "umask": "640"
+    },
+    "sortExpected": "1-El\n2-desvela\n3-camino\n4-secreto\n5-final"
+  },
+  "security": {
+    "maxCommandHistory": 100,
+    "allowedRedirects": [">", ">>"],
+    "protectedCommands": ["rm -rf /", ":(){ :|:& };:"],
+    "safeMode": true
+  }
+}

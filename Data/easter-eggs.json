@@ -1,0 +1,110 @@
+{
+  "matrix": {
+    "type": "animated",
+    "content": "Wake up, Neo...\nThe Matrix has you... 💊"
+  },
+  "coffee": {
+    "type": "ascii",
+    "content": "( (\n ) )\n........\n|      |]\n\\      /\n `----'"
+  },
+  "fortuneMessages": [
+    "A bug in the code is worth two in the documentation.",
+    "There are only 10 types of people: those who understand binary and those who don't.",
+    "Programming is 10% science, 20% ingenuity, and 70% getting the ingenuity to work with the science.",
+    "Always code as if the person who ends up maintaining your code is a violent psychopath who knows where you live.",
+    "The best thing about a boolean is even if you are wrong, you are only off by a bit.",
+    "Unix is user-friendly. It's just very selective about who its friends are.",
+    "I'm not lazy, I'm just in energy-saving mode.",
+    "If at first you don't succeed, call it version 1.0.",
+    "Computers are fast; programmers keep them slow.",
+    "The code that you write makes you a programmer. The code that you delete makes you a good one."
+  ],
+  "sudoPhrases": [
+    "We trust you have received the usual lecture from the local System Administrator.",
+    "Nice try, but you're not root here!",
+    "With great power comes great electricity bill.",
+    "sudo: unable to resolve host 'reality'",
+    "Access denied. Have you tried turning it off and on again?",
+    "I'm sorry, Dave. I'm afraid I can't do that.",
+    "You shall not pass! - Gandalf the Root",
+    "This incident will be reported to the System Administrator (who is probably you)",
+    "sudo: feeling lucky today? Try again!",
+    "With sudo comes great responsibility. Use it wisely, young padawan."
+  ],
+  "cowsayMessages": [
+    "Have you tried the Konami Code?",
+    "Moo! I mean, beep boop!",
+    "This cow knows binary: 01001101 01001111 01001111",
+    "Eat more chicken! Wait, wrong mascot...",
+    "I'm not a real cow, I'm a terminal cow!",
+    "Have you checked the hidden files today?",
+    "sudo make me a sandwich?",
+    "I herd you like CTF challenges...",
+    "This is udderly ridiculous!",
+    "Don't have a cow, man!"
+  ],
+  "hackSequences": [
+    "🎭 INITIATING HACK SEQUENCE...",
+    "[████████████████████████████] 100%",
+    "Access granted to mainframe...",
+    "Bypassing firewall...",
+    "Downloading the_internet.zip...",
+    "💻 HACK COMPLETE! You are now 1337 h4x0r!"
+  ],
+  "slTrain": [
+    "      ====        ________                ___________",
+    "  _D _|  |_______/        \\__I_I_____===__|_________|",
+    "   |(_)---  |   H\\________/ |   |        =|___ ___|",
+    "   /     |  |   H  |  C&O  |  |  |         ||_| |_||",
+    "  |      |  |   H  |__-------|  |   |         |__|___|",
+    "  | ________|___H__/__|_____/__|_____|",
+    "  |_____/    |---L^L|===L^L===L^L===L"
+  ],
+  "bsodContent": {
+    "title": ":( Your PC ran into a problem and needs to restart.",
+    "message": "We're just collecting some error info, and then we'll restart for you.",
+    "errorCode": "HACKER_OVERLOAD_EXCEPTION",
+    "qrCode": [
+      "█████████",
+      "█       █", 
+      "█ ███ █ █",
+      "█ ███ █ █",
+      "█ ███ █ █",
+      "█       █",
+      "█████████"
+    ]
+  },
+  "nmapScan": {
+    "ports": [
+      {"port": 22, "service": "ssh", "state": "open"},
+      {"port": 80, "service": "http", "state": "open"},
+      {"port": 443, "service": "https", "state": "open"},
+      {"port": 1337, "service": "waste", "state": "open"},
+      {"port": 3306, "service": "mysql", "state": "filtered"},
+      {"port": 8080, "service": "http-proxy", "state": "open"},
+      {"port": 31337, "service": "🚪 BACKDOOR", "state": "open"}
+    ],
+    "alert": "⚠️  ALERT: Suspicious backdoor found on port 31337",
+    "hint": "🔓 Type 'backdoor' to investigate further..."
+  },
+  "backdoorMessages": [
+    "🚪 Accessing hidden backdoor...",
+    "[████████████████████████] 100%",
+    "🎭 BACKDOOR UNLOCKED!",
+    "You've discovered the secret passage...",
+    "Hidden message: \"In the shadows of /etc, wisdom awaits\"",
+    "Hint: Check .shadow_config in level 2 hidden directories"
+  ],
+  "konamiReward": {
+    "title": "🎮 KONAMI CODE ACTIVATED! 🎮",
+    "sequence": "↑↑↓↓←→←→BA",
+    "reward": "⭐ You've unlocked the secret hacker achievement! ⭐",
+    "bonuses": ["+30 Lives", "+1337 Points", "+∞ Coffee"]
+  },
+  "debugInfo": {
+    "os": "HackerOS 13.37-leet edition",
+    "loadAverage": ["1.33", "7.77", "13.37"],
+    "processes": 42,
+    "users": 1337
+  }
+}

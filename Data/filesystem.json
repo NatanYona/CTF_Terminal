@@ -1,0 +1,337 @@
+{
+  "level1": {
+    "CTF_Challenge": {
+      "type": "directory",
+      "children": {
+        "Inicio": {
+          "type": "directory",
+          "children": {
+            "introduccion_ctf.txt": {
+              "type": "file",
+              "content": "Bienvenido al reto CTF.\nTu objetivo será navegar por los directorios, explorar los archivos, y reunir las piezas necesarias para reconstruir la bandera final.\nUtiliza los comandos de consola Linux como ls, cd, cat, mv, mkdir, rm.\n¡Buena suerte!\n\nP.S: Los hackers curiosos siempre encuentran secretos... 👀\n\n💡 Nuevo: Usa 'level 2' para acceder al siguiente desafío de permisos."
+            },
+            ".secret_readme.txt": {
+              "type": "file",
+              "content": "¡Encontraste un archivo oculto!\nPista: Prueba el comando 'matrix' para ver algo genial.\nTambién existe 'coffee' para los verdaderos programadores.\nLos Konami Codes nunca pasan de moda... ↑↑↓↓←→←→BA"
+            }
+          }
+        },
+        "Docs": {
+          "type": "directory",
+          "children": {
+            "instrucciones.txt": {
+              "type": "file",
+              "content": "Crea un directorio nuevo dentro de esta carpeta.\nMueve dentro de él los archivos correctos que contengan la bandera.\nCuando los hayas reunido, utiliza cat para concatenar su contenido y descubrir la flag final."
+            },
+            "flag.txt": {
+              "type": "file",
+              "content": "CTF{HICISTE_"
+            },
+            "pista.txt": {
+              "type": "file",
+              "content": "Pista: un organismo modelo usado en la ciencia.\nRevisa con atención la carpeta Animales."
+            },
+            "notas.txt": {
+              "type": "file",
+              "content": "Estas son tus notas:\nTen cuidado, no todos los archivos contienen partes válidas de la bandera.\nAlgunos están puestos como trampa.\n\nNota del administrador: Si encuentras bugs, prueba 'debug' 🐛"
+            },
+            ".env": {
+              "type": "file",
+              "content": "# Configuración del sistema CTF\nVERSION=\"HackerOS 13.37-leet\"\nKERNEL=\"Penguin-5.4.0-42-generic\"\nSHELL=\"/bin/bash-4-nerds\"\nUSER_AGENT=\"Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0\"\nSECRET_SAUCE=\"The cake is a lie\""
+            }
+          }
+        },
+        "Animales": {
+          "type": "directory",
+          "children": {
+            "raton.txt": {
+              "type": "file",
+              "content": "LAS_MOVIDAS_"
+            },
+            "conejo.txt": {
+              "type": "file",
+              "content": "LOS_SALTOS_"
+            },
+            "murcielago.txt": {
+              "type": "file",
+              "content": "LOS_VUELOS_"
+            },
+            "zorro.txt": {
+              "type": "file",
+              "content": "LAS_TRAMPAS_"
+            },
+            "pista_frutas.txt": {
+              "type": "file",
+              "content": "Pista: La fruta correcta es la que empieza con \"B\" y es la favorita de los monos."
+            },
+            ".dinosaur.txt": {
+              "type": "file",
+              "content": "🦕 ¿Un dinosaurio? ¡Imposible!\nEstos archivos tienen millones de años...\nO tal vez solo están aquí desde 1970-01-01 00:00:00 UTC 😉"
+            }
+          }
+        },
+        "Frutas": {
+          "type": "directory",
+          "children": {
+            "bananas.txt": {
+              "type": "file",
+              "content": "BIEN}"
+            },
+            "kiwi.txt": {
+              "type": "file",
+              "content": "MAL}"
+            },
+            "manzana.txt": {
+              "type": "file",
+              "content": "BUENAS}"
+            },
+            "uva.txt": {
+              "type": "file",
+              "content": "CORRECTAS}"
+            }
+          }
+        },
+        ".hidden": {
+          "type": "directory",
+          "children": {
+            "secrets.txt": {
+              "type": "file",
+              "content": "Easter Eggs disponibles:\n- matrix: Efecto Matrix\n- coffee: Para programadores\n- sudo: Poder supremo (o no)\n- rm -rf /: Classic troll\n- sl: Tren choo-choo\n- cowsay: Vaca parlanchina\n- fortune: Galleta de la fortuna\n- hack: Modo hacker\n- debug: Información del sistema"
+            }
+          }
+        }
+      }
+    }
+  },
+  "level2": {
+    "CTF_Permisos": {
+      "type": "directory",
+      "children": {
+        "Inicio": {
+          "type": "directory",
+          "permissions": "755",
+          "owner": "student",
+          "group": "students",
+          "children": {
+            "mensaje_bienvenida.txt": {
+              "type": "file",
+              "content": "Bienvenido, buscador del conocimiento prohibido.\n\nCinco pruebas te esperan, cada una guarda un fragmento del saber arcano:\n\n1. La Puerta de Hierro - donde los sentidos duermen\n2. El Tesoro del Rey - que no te pertenece  \n3. El Pergamino Secreto - de hermandades antiguas\n4. El Susurro Silencioso - que solo unos pocos escuchan\n5. Las Runas Desordenadas - que esperan su flujo natural\n\nComienza donde la puerta de hierro te espera...",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            }
+          }
+        },
+        "Desafio_chmod": {
+          "type": "directory",
+          "permissions": "755",
+          "owner": "student",
+          "group": "students",
+          "children": {
+            "enigma_puerta_cerrada.txt": {
+              "type": "file",
+              "content": "La puerta de hierro permanece sellada.\nNo se ve, no se toca, no se habla.\nTres números mágicos pueden abrirla:\n6 para el dueño, 4 para los aliados, 4 para los extraños.\n¿Qué comando despierta a los sentidos dormidos?",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            },
+            "puerta_hierro.txt": {
+              "type": "file",
+              "content": "Si estas palabras lees, el primer fragmento mereces.\nEjecuta la llave verificadora para reclamar tu recompensa.",
+              "permissions": "000",
+              "owner": "student",
+              "group": "students"
+            },
+            "llave_verificadora.sh": {
+              "type": "file",
+              "content": "#!/bin/bash\nif [ -r \"puerta_hierro.txt\" ]; then\n    echo \"CTF{L0S_P3RM1\" > ../fragmento_1.txt\n    echo \"✅ Fragmento 1 creado: fragmento_1.txt\"\nelse\n    echo \"❌ Usa: chmod 644 puerta_hierro.txt\"\nfi",
+              "permissions": "755",
+              "executable": true,
+              "owner": "student",
+              "group": "students"
+            }
+          }
+        },
+        "Desafio_chown": {
+          "type": "directory",
+          "permissions": "755",
+          "owner": "student",
+          "group": "students",
+          "children": {
+            "acertijo_propietario.txt": {
+              "type": "file",
+              "content": "El tesoro del rey no te pertenece.\nSu dueño es 'root', el soberano del sistema.\nToma posesión con el comando del cambio de corona.\nEl estudiante debe reclamar lo que es suyo.",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            },
+            "tesoro_rey.txt": {
+              "type": "file",
+              "content": "La corona ha cambiado de manos. \nEl cetro de verificación confirmará tu derecho.",
+              "permissions": "600",
+              "owner": "root",
+              "group": "root"
+            },
+            "cetro_verificacion.sh": {
+              "type": "file",
+              "content": "#!/bin/bash\necho \"¿Cambiaste el propietario a 'student'? (y/n)\"\nread r\nif [ \"$r\" = \"y\" ]; then\n    echo \"S05_S0N_L4_\" > ../fragmento_2.txt\n    echo \"✅ Fragmento 2 creado: fragmento_2.txt\"\nelse\n    echo \"❌ Usa: chown student tesoro_rey.txt\"\nfi",
+              "permissions": "755",
+              "executable": true,
+              "owner": "student",
+              "group": "students"
+            },
+            ".root_secrets": {
+              "type": "file",
+              "content": "🔐 Root's Secret Journal 🔐\n\nEntry 1: \"The best hackers know when to ask for help\"\nEntry 2: \"chmod 777 is like leaving your front door open\"\nEntry 3: \"umask is the silent guardian of security\"\nEntry 4: \"With root comes great responsibility\"\n\nP.S: If you changed ownership successfully, you're worthy of these secrets.\n\nHidden flag fragment: {R00T_M4ST3R}",
+              "permissions": "600",
+              "owner": "root",
+              "group": "root"
+            }
+          }
+        },
+        "Desafio_chgrp": {
+          "type": "directory",
+          "permissions": "755",
+          "owner": "student",
+          "group": "students",
+          "children": {
+            "misterio_hermandad.txt": {
+              "type": "file",
+              "content": "Este pergamino solo es legible para los 'guardias'.\nPero tú perteneces a la hermandad 'hackers'.\nCambia el círculo de lectores con el comando del grupo.\nSolo los iniciados pueden descifrar su contenido.",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            },
+            "pergamino_secreto.txt": {
+              "type": "file",
+              "content": "La hermandad te acepta. \nEl sello del verificador marcará tu progreso.",
+              "permissions": "640",
+              "owner": "root",
+              "group": "guardias"
+            },
+            "sello_verificador.sh": {
+              "type": "file",
+              "content": "#!/bin/bash\necho \"¿Cambiaste el grupo a 'hackers'? (y/n)\"\nread r\nif [ \"$r\" = \"y\" ]; then\n    echo \"CL4V3_P4R4_\" > ../fragmento_3.txt\n    echo \"✅ Fragmento 3 creado: fragmento_3.txt\"\nelse\n    echo \"❌ Usa: chgrp hackers pergamino_secreto.txt\"\nfi",
+              "permissions": "755",
+              "executable": true,
+              "owner": "student",
+              "group": "students"
+            }
+          }
+        },
+        "Desafio_umask": {
+          "type": "directory",
+          "permissions": "755",
+          "owner": "student",
+          "group": "students",
+          "children": {
+            "codigo_silencioso.txt": {
+              "type": "file",
+              "content": "Crea un mensaje llamado 'susurro.txt' con el texto 'umask_correcto'\nPero primero... establece el silencio con umask 037.\nAsí solo tú y tu grupo podrán escuchar el susurro.\nEl oráculo verificará si el secreto está bien guardado.",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            },
+            "oraculo_verificador.sh": {
+              "type": "file",
+              "content": "#!/bin/bash\nif [ -f \"susurro.txt\" ]; then\n    perms=$(stat -c \"%a\" susurro.txt 2>/dev/null)\n    if [ \"$perms\" = \"640\" ]; then\n        echo \"3L_T3S0R0\" > ../fragmento_4.txt\n        echo \"✅ Fragmento 4 creado: fragmento_4.txt\"\n    else\n        echo \"❌ Permisos: $perms (deben ser 640)\"\n    fi\nelse\n    echo \"❌ Crea susurro.txt después de: umask 037\"\nfi",
+              "permissions": "755",
+              "executable": true,
+              "owner": "student",
+              "group": "students"
+            },
+            ".umask_history": {
+              "type": "file",
+              "content": "# Historial de máscaras umask\n\numask 022 - Default (rw-r--r-- para archivos)\numask 027 - Seguro (rw-r----- para archivos)\numask 077 - Paranoico (rw------- para archivos)\numask 000 - Peligroso (rw-rw-rw- para archivos)\numask 037 - El correcto para este desafío 😉\n\nFórmula: Permisos = 666 (archivos) o 777 (dirs) - umask\n\nEjemplo con umask 037:\n666 - 037 = 640 (rw-r-----)",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            }
+          }
+        },
+        "Desafio_sort": {
+          "type": "directory",
+          "permissions": "755",
+          "owner": "student",
+          "group": "students",
+          "children": {
+            "caos_ordenado.txt": {
+              "type": "file",
+              "content": "Las runas antiguas han perdido su orden:\n\nRestaura el flujo natural del conocimiento.\nGuarda el resultado en 'runas_ordenadas.txt'\nLa piedra de la verdad revelará el fragmento final.",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            },
+            "runas_desordenadas.txt": {
+              "type": "file",
+              "content": "3-camino\n1-El\n4-secreto\n2-desvela\n5-final",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            },
+            "piedra_verificadora.sh": {
+              "type": "file",
+              "content": "#!/bin/bash\nif [ -f \"runas_ordenadas.txt\" ]; then\n    expected=$'1-El\\n2-desvela\\n3-camino\\n4-secreto\\n5-final'\n    current=$(cat runas_ordenadas.txt)\n    if [ \"$current\" = \"$expected\" ]; then\n        echo \"_D3_L0S_H4CK3R5}\" > ../fragmento_5.txt\n        echo \"✅ Fragmento 5 creado: fragmento_5.txt\"\n    else\n        echo \"❌ Orden incorrecto\"\n    fi\nelse\n    echo \"❌ Usa: sort runas_desordenadas.txt > runas_ordenadas.txt\"\nfi",
+              "permissions": "755",
+              "executable": true,
+              "owner": "student",
+              "group": "students"
+            }
+          }
+        },
+        "Sala_Final": {
+          "type": "directory",
+          "permissions": "755",
+          "owner": "student",
+          "group": "students",
+          "children": {
+            "profecia_completa.txt": {
+              "type": "file",
+              "content": "Has reunido los 5 fragmentos del conocimiento arcano.\n\nPara revelar la profecía completa:\n\ncat ../fragmento_1.txt ../fragmento_2.txt ../fragmento_3.txt ../fragmento_4.txt ../fragmento_5.txt > flag_final.txt\n\nLuego usa: more flag_final.txt",
+              "permissions": "644",
+              "owner": "student",
+              "group": "students"
+            },
+            ".easter_eggs.txt": {
+              "type": "file",
+              "content": "🥚 Easter Eggs del Nivel 2:\n\n- nmap: Escanea puertos y encuentra backdoors\n- bsod: Pantalla azul de la muerte (simulada)\n- backdoor: Investiga la puerta trasera\n- whoami: ¿Quién eres realmente en nivel 2?\n- matrix: El código nunca se va\n- hack: Modo hacker intensificado\n\nArchivos ocultos para explorar:\n- .shadow_config en el directorio raíz\n- .kernel_panic.log en algún lugar\n- .root_secrets en Desafio_chown",
+              "permissions": "444",
+              "owner": "root",
+              "group": "root"
+            }
+          }
+        },
+        ".hidden_vault": {
+          "type": "directory",
+          "permissions": "750",
+          "owner": "root",
+          "group": "hackers",
+          "children": {
+            ".shadow_config": {
+              "type": "file",
+              "content": "# Shadow Configuration File\n# Access Level: RESTRICTED\n# Last modified: 1970-01-01 00:00:00\n\n[SYSTEM]\nbackdoor_port=31337\nadmin_password=hunter2\nsecret_key=CTF{Y0U_F0UND_TH3_SH4D0W}\n\n[PERMISSIONS]\numask_override=000\nchmod_bypass=enabled\nchown_unrestricted=true\n\n# If you're reading this, you've earned it 🎉",
+              "permissions": "600",
+              "owner": "root",
+              "group": "root"
+            },
+            ".kernel_panic.log": {
+              "type": "file",
+              "content": "[    0.000000] Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(0,0)\n[    0.000000] CPU: 0 PID: 1 Comm: swapper Not tainted 5.4.0-42-generic #13.37-leet\n[    0.000000] Hardware name: CTF Virtual Machine/Hacker Edition\n[    0.000000] Call Trace:\n[    0.000000]  dump_stack+0x1337/0x0\n[    0.000000]  panic+0x42/0x13\n[    0.000000]  mount_block_root+0x0/0xdead\n[    0.000000]  mount_root+0xbeef/0x0\n[    0.000000]  \n[    0.000000] Easter Egg Alert: System recovered by caffeine injection ☕\n[    0.000000] Hidden wisdom: \"With great perms comes great responsibility\"",
+              "permissions": "444",
+              "owner": "root",
+              "group": "root"
+            },
+            "backdoor_access.sh": {
+              "type": "file",
+              "content": "#!/bin/bash\n# Backdoor Access Script\n# Warning: For authorized hackers only\n\necho \"🚪 Backdoor Access Granted\"\necho \"Connecting to secret channel...\"\nsleep 1\necho \"Connection established!\"\necho \"\"\necho \"Secret message: Los permisos son la llave, el conocimiento es la puerta\"\necho \"\"\necho \"Achievement Unlocked: Master of Shadows\"",
+              "permissions": "755",
+              "executable": true,
+              "owner": "root",
+              "group": "hackers"
+            }
+          }
+        }
+      }
+    }
+  }
+}
