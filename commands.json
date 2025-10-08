@@ -1,0 +1,181 @@
+{
+  "commandHelp": {
+    "ls": {
+      "description": "Lista los archivos y directorios en el directorio actual",
+      "usage": "ls [directorio] [-a para archivos ocultos] [-l para formato largo]",
+      "examples": [
+        "ls        # Lista el contenido del directorio actual",
+        "ls Animales # Lista el contenido del directorio Animales",
+        "ls -a     # Muestra archivos ocultos también",
+        "ls -l     # Muestra permisos y propietarios (solo nivel 2)"
+      ]
+    },
+    "cd": {
+      "description": "Cambia el directorio actual",
+      "usage": "cd [directorio]",
+      "examples": [
+        "cd Animales   # Cambia al directorio Animales",
+        "cd ..         # Retrocede al directorio padre",
+        "cd /          # Va al directorio raíz"
+      ]
+    },
+    "pwd": {
+      "description": "Muestra la ruta del directorio actual",
+      "usage": "pwd",
+      "examples": [
+        "pwd   # Muestra algo como '/CTF_Challenge/Animales'"
+      ]
+    },
+    "cat": {
+      "description": "Muestra el contenido de uno o más archivos",
+      "usage": "cat archivo1 [archivo2 ...]",
+      "examples": [
+        "cat flag.txt                   # Muestra el contenido de flag.txt",
+        "cat flag.txt raton.txt         # Muestra ambos archivos concatenados",
+        "cat flag.txt raton.txt > final.txt # Combina ambos archivos en final.txt"
+      ]
+    },
+    "mkdir": {
+      "description": "Crea un nuevo directorio",
+      "usage": "mkdir nombre_directorio",
+      "examples": [
+        "mkdir mi_carpeta   # Crea un directorio llamado 'mi_carpeta'"
+      ]
+    },
+    "mv": {
+      "description": "Mueve o renombra archivos y directorios",
+      "usage": "mv origen destino",
+      "examples": [
+        "mv archivo.txt nuevo_nombre.txt   # Renombra archivo",
+        "mv archivo.txt carpeta/           # Mueve archivo a carpeta"
+      ]
+    },
+    "rm": {
+      "description": "Elimina archivos o directorios",
+      "usage": "rm archivo",
+      "examples": [
+        "rm archivo.txt          # Elimina un archivo",
+        "rm -r carpeta/          # Elimina directorio y su contenido"
+      ]
+    },
+    "echo": {
+      "description": "Muestra texto en la terminal o lo guarda en archivo",
+      "usage": "echo texto [> archivo]",
+      "examples": [
+        "echo 'Hola mundo'       # Muestra 'Hola mundo'",
+        "echo 'texto' > archivo  # Guarda 'texto' en archivo"
+      ]
+    },
+    "chmod": {
+      "description": "Cambia los permisos de archivos y directorios (solo nivel 2)",
+      "usage": "chmod [permisos] archivo",
+      "examples": [
+        "chmod 644 archivo.txt    # rw-r--r--",
+        "chmod 755 directorio     # rwxr-xr-x",
+        "chmod +x script.sh       # Agrega permisos de ejecución"
+      ]
+    },
+    "chown": {
+      "description": "Cambia el propietario de archivos (solo nivel 2)",
+      "usage": "chown usuario archivo",
+      "examples": [
+        "chown student archivo.txt  # Cambia propietario a student"
+      ]
+    },
+    "chgrp": {
+      "description": "Cambia el grupo de archivos (solo nivel 2)",
+      "usage": "chgrp grupo archivo",
+      "examples": [
+        "chgrp hackers archivo.txt  # Cambia grupo a hackers"
+      ]
+    },
+    "umask": {
+      "description": "Establece la máscara de permisos por defecto (solo nivel 2)",
+      "usage": "umask [valor]",
+      "examples": [
+        "umask        # Muestra umask actual",
+        "umask 037    # Establece umask a 037"
+      ]
+    },
+    "sort": {
+      "description": "Ordena las líneas de un archivo",
+      "usage": "sort archivo",
+      "examples": [
+        "sort archivo_desordenado  # Ordena las líneas del archivo"
+      ]
+    },
+    "bash": {
+      "description": "Ejecuta un script de shell (solo nivel 2)",
+      "usage": "bash script.sh o ./script.sh",
+      "examples": [
+        "bash verificador.sh  # Ejecuta el script verificador",
+        "./verificador.sh     # Forma abreviada"
+      ]
+    },
+    "stat": {
+      "description": "Muestra información detallada de archivos (solo nivel 2)",
+      "usage": "stat [-c formato] archivo",
+      "examples": [
+        "stat archivo.txt      # Información completa",
+        "stat -c '%a' archivo  # Solo permisos en octal"
+      ]
+    },
+    "level": {
+      "description": "Cambia entre niveles del CTF",
+      "usage": "level [1|2]",
+      "examples": [
+        "level 1   # Cambia al CTF de navegación",
+        "level 2   # Cambia al CTF de permisos"
+      ]
+    },
+    "help": {
+      "description": "Muestra ayuda sobre los comandos disponibles",
+      "usage": "help [comando]",
+      "examples": [
+        "help       # Muestra todos los comandos disponibles",
+        "help cat   # Muestra ayuda detallada sobre el comando cat"
+      ]
+    },
+    "clear": {
+      "description": "Limpia la terminal",
+      "usage": "clear",
+      "examples": [
+        "clear   # Limpia toda la pantalla de la terminal"
+      ]
+    },
+    "reset": {
+      "description": "Reinicia el CTF al estado inicial",
+      "usage": "reset",
+      "examples": [
+        "reset   # Reinicia todo el progreso"
+      ]
+    }
+  },
+  "funnyCommands": {
+    "vim": "vim: command found, but how do you exit? 😈\nPress ESC then type :q! (just kidding, this is fake vim)",
+    "nano": "nano: too mainstream for 1337 hackers. Try vim!",
+    "emacs": "emacs: Great OS, terrible editor.",
+    "exit": "exit: There is no escape from the CTF! Muahahaha!",
+    "logout": "logout: You can check out any time you like, but you can never leave...",
+    "shutdown": "shutdown: Nice try! But this terminal runs on pure caffeine ☕",
+    "reboot": "reboot: Error 404: Physical hardware not found",
+    "whoami": "You are: Neo, Trinity, Morpheus, A script kiddie, The chosen one, or Batman? 🤔",
+    "id": "uid=1337(hacker) gid=31337(elite) groups=31337(elite),42(answer),69(nice)",
+    "uname": "HackerOS 13.37.0-leet #42-Ubuntu SMP Wed Apr 1 13:37:00 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux",
+    "ps": "PID USER      COMMAND\n1337 hacker    coffee_generator --infinite\n 666 root      easter_egg_hunter --stealth\n  42 student    ctf_solver --still-thinking",
+    "top": "top: Sorry, this terminal is too busy being awesome",
+    "htop": "htop: Use your imagination... it's colorful!",
+    "free": "free: Memory usage: 13% awesome, 37% hacker skills, 50% pure caffeine",
+    "df": "df: Filesystem      Size  Used Avail Use% Mounted on\n/dev/hacker1   1337G  666G  671G  50% /ctf\n/dev/secrets    42G   13G   29G  31% /etc/passwords",
+    "mount": "mount: Everything that can be mounted, has been mounted",
+    "umount": "umount: I'd rather not unmount anything, thank you",
+    "ssh": "ssh: Connecting to reality... connection timed out",
+    "scp": "scp: Secure Copy Protocol? More like Super Cool Pranks!",
+    "wget": "wget: Downloading the internet... estimated time: 13.37 years",
+    "curl": "curl: Curling your data into a little ball of fun!",
+    "ping": "ping: PONG! PONG! PONG! The server is definitely awake",
+    "netstat": "netstat: Network status: You're connected to THE MATRIX",
+    "ifconfig": "ifconfig: eth0: flags=1337 UP BROADCAST RUNNING PROMISC HACKER",
+    "iptables": "iptables: Rule 1: Allow all awesome traffic\nRule 2: Block all boring packets"
+  }
+}
